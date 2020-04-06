@@ -6,7 +6,7 @@
             </div>
             <el-form label-width="0px" ref="loginFormRef" class="login_form" :model="loginForm" :rules="loginFormRules">
                     <el-form-item prop="usrname">
-                        <el-input v-model="loginForm.usrname" prefix-icon="el-icon-user-solid"></el-input>
+                        <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
                     </el-form-item>
                     <el-form-item >
                         <el-input v-model="loginForm.password" prefix-icon="el-icon-s-goods" type="password"></el-input>
@@ -25,12 +25,12 @@ export default {
   data () {
     return {
       loginForm: {
-        usrname: '11111',
-        password: '111111'
+        username: 'admin',
+        password: '123456'
 
       },
       loginFormRules: {
-        usrname: [
+        username: [
           { required: true, message: '请输入用户名称', trigger: 'blur' },
           { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
         ],
@@ -46,7 +46,7 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     login () {
-      this.$refs.loginFormRef.validata(async valid => {
+      this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error('登录失败')
